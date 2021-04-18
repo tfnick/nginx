@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: tfnick/nginx-proxy
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+spec:
+  ports:
+    - name: 7443-tcp
+      port: 7443
+      protocol: TCP
+      targetPort: 7443
+    - name: 7022-tcp
+      port: 7022
+      protocol: TCP
+      targetPort: 7022
+  selector:
+    app: nginx
+  type: ClusterIP
