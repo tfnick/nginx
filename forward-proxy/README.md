@@ -1,3 +1,7 @@
+# features
+
+custom a nginx(v1.14.2) image supports sftp-forward and http(s)-forward 
+
 # build
 docker build -t tfnick/nginx-proxy:v0.0.1 .
 

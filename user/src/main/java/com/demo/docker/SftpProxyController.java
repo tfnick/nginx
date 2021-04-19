@@ -46,7 +46,7 @@ public class SftpProxyController {
 
         Map<String,String> result = MapUtil.builder("hello","sftp").build();
 
-        logger.info("send sftp request with {} {} {} {}",sftpUsername,sftpPassword,proxyServer,proxySftpPort);
+        logger.info("准备通过代理 {}:{},用户{},{} 请求 SFTP",proxyServer,proxySftpPort,sftpUsername,sftpPassword);
 
         try {
             boolean success = sftpUtil.connect(proxyServer, sftpUsername, sftpPassword, proxySftpPort, 5000);

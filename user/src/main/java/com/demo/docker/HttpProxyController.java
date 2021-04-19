@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 public class HttpProxyController {
@@ -39,6 +41,7 @@ public class HttpProxyController {
         SimpleClientHttpRequestFactory reqfac = new SimpleClientHttpRequestFactory();
         reqfac.setProxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(proxyServer, proxyHttpPort)));
         RestTemplate template = new RestTemplate();
+        template.getMessageConverters().set(1,new StringHttpMessageConverter(StandardCharsets.UTF_8));
         template.setRequestFactory(reqfac);
 
         return template.getForObject(target, String.class);
